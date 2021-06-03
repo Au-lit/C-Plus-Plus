@@ -15,17 +15,6 @@
 #ifndef CIPHERS_UINT256_T_HPP_
 #define CIPHERS_UINT256_T_HPP_
 
-class uint256_t;
-
-template <>
-struct std::is_integral<uint256_t> : std::true_type {};
-
-template <>
-struct std::is_arithmetic<uint256_t> : std::true_type {};
-
-template <>
-struct std::is_unsigned<uint256_t> : std::true_type {};
-
 /**
  * @class uint256_t
  * @brief class for 256-bit unsigned integer

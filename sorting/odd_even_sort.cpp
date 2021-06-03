@@ -2,10 +2,9 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
-
-void oddEven(vector<int> &arr, int size) {
+void oddEven(vector<int>& arr) {
     bool sorted = false;
+    int size = arr.size();
     while (!sorted) {
         sorted = true;
         for (int i = 1; i < size - 1; i += 2)  // Odd
@@ -26,28 +25,29 @@ void oddEven(vector<int> &arr, int size) {
     }
 }
 
-void show(vector<int> A, int size) {
-    int i;
-    for (i = 0; i < size; i++) cout << A[i] << "\n";
+void show(const std::vector<int>& arr) {
+    std::cout << '[';
+    for (const auto& i : arr) std::cout << i << ", ";
+    std::cout << ']';
 }
 
 int main() {
-    int size, temp;
-    cout << "\nEnter the number of elements : ";
-    cin >> size;
+    int size = 0;
+    int temp = 0;
+    std::cout << "\nEnter the number of elements : ";
+    std::cin >> size;
 
-    vector<int> arr;
+    std::vector<int> arr;
 
-    cout << "\nEnter the unsorted elements : \n";
+    std::cout << "\nEnter the unsorted elements : \n";
 
     for (int i = 0; i < size; ++i) {
-        cin >> temp;
+        std::cin >> temp;
         arr.push_back(temp);
     }
 
-    oddEven(arr, size);
+    oddEven(arr);
 
-    cout << "Sorted array\n";
-    show(arr, size);
-    return 0;
+    std::cout << "Sorted array\n";
+    show(arr);
 }

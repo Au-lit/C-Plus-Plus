@@ -18,15 +18,6 @@
 
 #ifndef CIPHERS_UINT128_T_HPP_
 #define CIPHERS_UINT128_T_HPP_
-class uint128_t;
-
-template <>
-struct std::is_integral<uint128_t> : std::true_type {};
-template <>
-struct std::is_arithmetic<uint128_t> : std::true_type {};
-template <>
-struct std::is_unsigned<uint128_t> : std::true_type {};
-
 /**
  * @brief Adding two string
  * @details Adds two long integer, only used for printing numbers
@@ -66,7 +57,7 @@ class uint128_t {
      * number)
      * @returns void
      */
-    void __get_integer_from_string(const std::string &str) {
+    void get_integer_from_string(const std::string &str) {
         this->f = this->s = 0;
         if (str.size() > 1 && str[1] == 'x') {  // if hexadecimal
             for (auto i = 2; i < str.size(); ++i) {
@@ -104,7 +95,7 @@ class uint128_t {
      * @param str Integer string (hexadecimal starting with 0x.. or decimal)
      */
     explicit uint128_t(const std::string &str) {
-        __get_integer_from_string(str);
+        get_integer_from_string(str);
     }
 
     /**
@@ -124,12 +115,7 @@ class uint128_t {
      * @brief Move constructor
      * @param num 128-bit unsigned integer
      */
-    uint128_t(uint128_t &&num) noexcept : f(num.f), s(num.s) {}
-
-    /**
-     * @brief Destructor for uint128_t
-     */
-    ~uint128_t() = default;
+    uint128_t(uint128_t &&num) noexcept = default;
 
     /**
      * @brief Leading zeroes in binary

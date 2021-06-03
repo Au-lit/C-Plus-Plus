@@ -38,7 +38,7 @@ std::array<int, N> pigeonSort(std::array<int, N> arr) {
 
     // Range refers to the number of holes required
     int range = *max - *min + 1;
-    int *hole = new int[range]();
+    std::vector<int> hole{ range };
 
     // Copying all array values to pigeonhole
     for (int i = 0; i < N; i++) {
@@ -128,6 +128,4 @@ int main() {
     test_1();
     test_2();
     test_3();
-
-    return 0;
 }

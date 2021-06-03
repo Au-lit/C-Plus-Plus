@@ -56,7 +56,7 @@ namespace sorting {
  * @param n Size of Array
  */
 template <typename T>
-void insertionSort(T *arr, int n) {
+void insertionSort(T* arr, int n) {
     for (int i = 1; i < n; i++) {
         T temp = arr[i];
         int j = i - 1;
@@ -74,8 +74,8 @@ void insertionSort(T *arr, int n) {
  * @param [in,out] arr pointer to array to be sorted
  */
 template <typename T>
-void insertionSort(std::vector<T> *arr) {
-    size_t n = arr->size();
+void insertionSort(std::vector<T>& arr) {
+    const auto n = arr.size();
 
     for (size_t i = 1; i < n; i++) {
         T temp = arr[0][i];
@@ -127,7 +127,7 @@ void tests() {
 
     std::vector<float> arr4({5.6, -3.1, -3.0, -2.1, 1.8});
     std::cout << "Test 4... ";
-    sorting::insertionSort(&arr4);
+    sorting::insertionSort(arr4);
     assert(std::is_sorted(std::begin(arr4), std::end(arr4)));
     std::cout << "passed" << std::endl;
 
@@ -152,28 +152,19 @@ int main() {
     tests();
 
     /// For user insteraction
-    size_t n;
+    std::size_t n;
     std::cout << "Enter the length of your array (0 to exit): ";
     std::cin >> n;
-    if (n == 0) {
-        return 0;
-    }
+    if (!n) return 1;
 
-    int *arr = new int[n];
+    std::vector<int> arr{ n };
     std::cout << "Enter any " << n << " Numbers for Unsorted Array : ";
 
-    for (int i = 0; i < n; i++) {
-        std::cin >> arr[i];
-    }
+    for (auto& i : arr) std::cin >> i;
 
-    sorting::insertionSort(arr, n);
+    sorting::insertionSort(arr);
 
     std::cout << "\nSorted Array : ";
-    for (int i = 0; i < n; i++) {
-        std::cout << arr[i] << " ";
-    }
-
-    std::cout << std::endl;
-    delete[] arr;
-    return 0;
+    for (const auto& i : arr) std::cout << i << " ";
+    std::cout << '\n';
 }

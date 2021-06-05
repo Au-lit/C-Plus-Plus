@@ -59,44 +59,33 @@ namespace median_search {
 * @param idx current index in array
 * @returns corresponding element which we want to search.
 */  
-int median_of_medians(const std::vector<int>& A,  const int& idx) {
-	int pivot = 0;					// initialized with zero
+int median_of_medians(const std::vector<int>& A, const std::size_t idx) {
 	std::vector<int> a(A.begin(), A.end());
 	std::vector<int> m;
-	int r = a.size();
-	for(int i = 0; i < r; i += 5){
+	const auto r = a.size();
+	for (int i = 0; i < r; i += 5){
 		std::sort(a.begin() + i, a.begin() + std::min(r, i + 5));
 		int mid = (i + std::min(r, i + 5)) / 2;
 		m.push_back(a[mid]);
 	}
-	int sz = int(m.size());
-	if(sz <= 5){
-		std::sort(m.begin(), m.end());
-		pivot = m[(sz- 1) / 2];
-	}
-	else{
-		pivot = median_of_medians(m, idx);
-	}
+	const auto sz = m.size();
+	const int pivot = [&] -> int {
+		if (sz <= 5){
+			std::sort(m.begin(), m.end());
+			return m[(sz - 1) / 2];
+		}
+		else return median_of_medians(m, idx);
+	}();
 	std::vector<int> low;
 	std::vector<int> high;
-	for(int i = 0; i < r; i++){
-		if(a[i] < pivot){
-			low.push_back(a[i]);
-		}
-		else if(a[i] > pivot){
-			high.push_back(a[i]);
-		}
+	for(int i = 0; i < r; ++i) {
+		if (a[i] < pivot) low.push_back(a[i]);
+		else if (a[i] > pivot) high.push_back(a[i]);
 	}
-	int k = int(low.size());
-	if(idx < k){
-		return median_of_medians(low, idx);
-	}
-	else if(idx > k){
-		return median_of_medians(high, idx-k-1);
-	}
-	else{
-		return pivot;
-	}
+	const auto k = low.size();
+	if (idx < k) return median_of_medians(low, idx);
+	else if (idx > k) return median_of_medians(high, idx-k-1);
+	else return pivot;
 }
 }  // namespace median_search
 }  // namespace search
